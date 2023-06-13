@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap CSS -->
+
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+ <link rel="stylesheet" href="css/bootstrap.css">
+ <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+    <title>Manage Templates</title>
+    <style>
+
+.dofocusvisible {
+    outline: -webkit-focus-ring-color auto 1px;
+    outline-color: #dc3545;
+    outline-style: auto;
+    outline-width: 1px;
+}
+
+.templatelistfocus {
+        background-color: #ffffe6;
+        outline: 2px auto rgb(160, 3, 3);
+        font-weight: bolder;
+    }  
+
+.modal-header-danger {
+	color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #dc3545; 
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
+
+.modal-secondary {
+	color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #5c636a;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
+
+
+
+
+.modal-header-success {
+    color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    border-top:1px solid #589e58;
+    background-color: #589e58;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
+
+        .toppanel{           
+            
+            background-color: white;
+            /*padding: 2px 30px;*/
+            padding: 0.125rem 0.85rem;            
+        }
+
+
+
+        #tablediv { max-height: 55vh;}
+        
+        .tempinnerbox {       
+            height: 30vh; /* make height 30% of viewport */ 
+            min-height:300px;          
+        }
+
+        #innerBoxRight{  height: 30vh;min-height:300px;}
+
+       
+        @media only screen and (max-height: 900px) and (max-width: 768px ) { 
+            /* For Mobile Device : the @media directive is used to say if the screen height of the 
+            device is less than 900 px the panel height are adjusted  to allow proper 
+            display and scrolling*/
+
+            .tempinnerbox { height: 400px; /* make height 30% of viewport */ }
+
+            #txablediv{ max-height: 400px; }         
+           
+            #innerBoxRight{ height: 200px;}
+
+        }        
+
+  
+        .boxshadow {
+            box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+        }
+
+        .panelHeader{
+            background-color: #f8f9fc;  /* #f8f9fc */
+            padding: 0.5rem !important;
+            border-bottom: 1px solid #dee2e6 !important;
+            
+        }
+
+        .dropdown-item:hover {
+            background-color: rgb(248, 89, 89);
+            color: #fff;
+        }
+
+tr:focus{
+    background-color: rgb(253, 253, 206);
+}
+
+    #templatelist > button > i {
+        color:maroon;
+        font-size: 1.3rem;
+        bxackground-color: lime;
+    }
+
+    #templatelist button:hover {
+        background-color: #ffffe6;
+        font-weight: bolder;
+    }
+
+    #templatelist button:focus {
+        background-color: #ffffe6;
+        outline: 2px auto rgb(160, 3, 3);
+        font-weight: bolder;
+    }    
+
+    #templatelist i {
+        font-size: 1.3rem;
+    }
+
+    html, body {
+  height: 100%;
+  margin: 0;
+  borxder: 3px dashed blue;
+}
+
+.sbx{
+    border: 2px dashed red;
+}
+
+.sbx1{
+    border: 2px solid blue;
+}
+.sbx2{
+    border: 2px dotted green;
+}
+.sbx3{
+    border: 2px dotted #000;
+}
+
+
+.table-hover > tbody > tr:hover {
+   
+    background-color: #ebfc03;
+    /* color: #ffc107; */
+}
+
+
+
+
+</style>
+</head>
+<body >
+<div id="maindiv">   
+<div class="container-md  h-100 " >
+
+    <div class="toppanel rounded my-2 shadow card "> <!-- The Top Panel-->
+        <div class="row ">
+            <div class="col-md-6 tempinnerbox px-0">
+                <div class="d-flex flex-column justify-content-between" style="height: 100%">
+                    <div class="panelHeader" >
+                        <h5 class="d-inline text-primary font-weight-bold   "><i class="bi bi-bricks" stsyle="font-size: 1rem;">&nbsp;</i>Templates</h5> (v6.16)
+                        <button type="button" class="btn btn-outline-success btn-sm  py-0 float-end " @click="doShowCreateNewTemplate" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="CreateNewTemplate"><i class="fas fa-plus-circle"></i>&nbsp;Create New Template</button>             
+                    </div>
+                    <div class="p-2  h-100 overflow-auto">
+                        <div class="list-group list-group-flush" id=templatelist> <!-- This will be changed with code-->
+                            <button type="button" class="list-group-item list-group-item-action" v-for="(templateObj,index) in templateLists" :key="index" @click="doTemplateNameClick" :data-id="templateObj.name" :tempName="templateObj.name"><i class="fas fa-table"></i>&nbsp;{{templateObj.name}}</button>
+
+                            
+                                
+                        </div>
+
+                    </div>
+                    <div class=" d-flex py-1 mt-auto border-top border-2  px-1">
+                        <div class="row  w-100  text-center text-nowrap">
+                            <div class="col"><button type="button" class="btn btn-primary btn-sm   w-100" :onclick="dynTest"><i class="fas fa-copy"></i>&nbsp;Clone</button></div>
+                            <div class="col "><button type="button" class="btn btn-primary btn-sm w-100 " onclick="Test2()"><i class="fas fa-edit"></i>&nbsp;Edit</button></div>
+                            <div class="col "><button type="button" class="btn btn-danger btn-sm w-100"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="doDeleteTemplate" :class="{disabled : bDisableDelBtn}" ><i class="fas fa-trash-alt"></i>&nbsp;Delete</button></div>
+                            <div class="col  ">
+                                <!-- ------------------------------------------------------------>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-sm w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-people-carry"></i>&nbsp;More Actions
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Share Template To</a></li>
+                                    <li><a class="dropdown-item" href="#">Merge Template</a></li>
+                                    <li><a class="dropdown-item" href="#">Archive Template</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Make Private</a></li>
+                                    </ul>
+                                </div>
+                                <!--   ------------------------------------------------------   -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- The Summary Panel -->
+            <div class="col-md-6 tempinnerbox px-0 border-start " id="innerBoxRight">
+                <div class="d-flex flex-column justify-content-between" style="height: 100%">
+                    <div class="panelHeader">
+                        <h5 class="d-inline text-primary font-weight-bold m-0 "><i class="fas fa-clipboard-list"></i>&nbsp;Summary {{activeMsg}}</h5>
+                        <!-- <button type="button" class="btn btn-info my-0 py-0 float-right ">Create New Template</button> -->
+                    </div>
+                    <div class="p-1 flex-grow-1   overflow-auto"  >
+                        <div class="form-control border border-white  h-100 " >
+                            <table class="table table-sm table-hover">
+                                <tbody>
+                                    <template v-for="(value, name, index) in templateSummObj" >
+                                        <tr  v-if="index > 0">
+                                            <th scope="row">{{name.replaceAll('_', ' ')}} :</th>
+                                            <td>{{value}}</td>
+                                        </tr>
+                                    </template>
+                        
+                                </tbody>
+                              </table>
+
+                              <div class="mb-3" v-if="Object.keys(templateSummObj).length !== 0 && templateSummObj.Description.length > 0 "> <!-- this code check if the templateSummObj is an EMPTY {}object -->
+                                <label for="fieldDesc" class="form-label fw-bold mb-0 mx-1 fs-6 text-danger">Description</label>                
+                                <textarea class="form-control h-100 " id="exampleFormControlTextarea1" readonly rows="2">{{templateSummObj.Description}} </textarea>    
+                                             
+                              </div>                                
+                        </div>
+                    </div>
+
+
+                    
+
+                </div>
+            </div>    
+        </div>
+    </div>
+ 
+    <div class="card mt-4 shadow "> <!-- The bottom Panel-->
+         
+            <div class="card-header  p-1">
+                <h5 class="d-inline text-primary"><i class="fas fa-table"></i>&nbsp;{{selectedTemplateName}}</h5>
+                    <button type="button" class="btn btn-outline-success btn-sm float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="doCreateNewField" :class="{disabled : bDisableDelBtn}"><i class="fas fa-plus-square"></i>&nbsp;Create New Field</button>
+            </div>
+            <div class="card-body py-0">
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        <div class="overflow-auto "    id="tablediv">
+                            <table class="table  table-striped table-hover table-sm ">
+                                <thead class="thead-dark">
+                                <tr >
+                                    <th scope="col">#</th>
+                                    <th scope="col">Field Name</th>
+                                    <th scope="col">Field Type</th>
+                                    <th scope="col">Importance</th>
+                                    <th scope="col">Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr @click="handleTRclick"  :id="field.getRowID()"  v-for="(field, index) in fields">
+                                    <th scope="row">{{index+1}}</th>
+                                    <td>{{field.fieldname}}</td>
+                                    <td>{{field.fieldtype}}</td>
+                                    <td>{{field.fieldimpt}}</td>
+                                    <td>{{field.fielddesc}}</td>
+                                </tr>
+
+
+                                                                                                                                                                                                                                             
+                                </tbody>
+                            </table>
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+            <div class="card-footer p-1">
+                <div class="row justify-content-between">
+                    <div class="col-6" >
+                        <button type="button" id= "btnDelField" class="btn btn-danger btn-sm float-start" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled @click="doDeleteFieldDialogRender"><i class="fas fa-trash-alt"></i>&nbsp;Delete Field</button>
+                    </div>
+                    <div class="col-6" >
+                        <button type="button" id="btnEditField"   class="btn btn-primary btn-sm float-end" disabled  ><i class="fas fa-edit"  ></i>&nbsp;Edit Field</button>
+                    </div>
+                </div>
+            </div> <!-- End Card footer -->
+       
+
+
+
+    </div>
+    
+</div><!--End main Container-->
+
+<!--------------------------------------------------------------------------------------------------------------------------------->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centeredx">
+      <div class="modal-content">
+        <div class="modal-header " :class="modaldialogheadercolor">
+          <h5 class="modal-title" id="staticBackdropLabel">{{mDialogHeader}}</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" ref="dialogClose"></button>
+        </div>
+        <div class="modal-body">            
+            <div v-html="mDialogBodyHtml"></div>          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger " data-bs-dismiss="modal">{{CloseBtnMsg}}</button>
+          <button type="button" class="btn btn-primary ms-5" :onclick="modalDiagOKclickAction"  id="modalOkBtn">{{OkBtnMsg}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--------------------------------------------------------------------------------------------------------------------------------->
+         
+
+</div> 
+
+<!--------------------------------------------------------------------------------------------------------------------------------->
+<!-- Java Script below here -->
+<!-- Import App -->
+<script src="js/template_js.js"></script>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+<!--------------------------------------------------------------------------------------------------------------------------------->   
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+
+
+
+    <title>Document</title>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.min.js" integrity="sha512-JiRzqZPYxjedpFqoYdKBcsKiBUfsmRZTyjuGlumbyJt4WJfWBZNqIizmbNgPN19VFtg3NYywvNk9lkt4KXVhiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/xlsSheetsfunctions.js"></script>
+ 
+
+<body>
+
+   
+    
+    <div class="container-md border border-danger ">
+        <div class="mx-auto border border-primary shadow m-3 p-3 rounded text-center" style="border-style: dotted !important; ">         
+            
+            <input type="file" name="xlfile" id="xlf" accept=".xls, .xlsx" class="float-start" />
+            <button type="button" class="btn btn-outline-success btn-sm  mx-auto " onclick="test()"><i class="fas fa-plus-circle"></i>Read EXCEL File</button> 
+            <div class="float-end">
+                <label for="wkslist" class="form-label fw-bold mb-0 mx-1 fs-6 text-danger">WorkSheet Name:</label>
+                <select id="wkslist" onchange="displaySheetData(this.value)"><option>Select WorkSheet</option> </select>
+            </div>           
+        </div>
+        <hr>
+        <table class="table table-responsive table-striped table-hover tabsle-sm  table-bordered w-auto mx-auto">
+            <thead class="thead-dark bg-primary text-white">                             
+                <tr>                               
+                    <th scope="col" >Database Field Names</th>
+                    <th scope="col" ></th>
+                    <th scope="col" >Mapped Field Names</th>    
+                    <th scope="col" classs="col-md-auto">All Excel Table Fields</th>
+                </tr>
+            </thead>
+         <tbody id="tablebody">
+
+
+        </tbody>
+        </table>
+    </div>
+
+
+</body>
+</html>
