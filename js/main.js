@@ -4,8 +4,8 @@ const vueOptObject = {
     data() {
         return {
                 activeMsg : 'Vue is active',
-                userpwd: '',
-                useremail: ''
+                userpwd: '1234567',
+                useremail: 'demo@qub.uk'
         }
     },
 
@@ -22,7 +22,7 @@ const vueOptObject = {
             console.log('Submit button clicked');
            
             if(this.useremail === '') {
-                alert('Please enter your user email');
+                alert('Please enter your user email (ANY EMAIL and PASSWORD is OK)');
                 this.$refs.useremail.focus();
                 return false;
             }
